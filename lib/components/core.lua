@@ -150,7 +150,7 @@ local function get_top_entries(max, dev, types, padded_len, align)
 end
 
 lcc.tpl.cpu = [[
-${font}${execi 3600 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'} ${alignr} ${cpu cpu0}%
+${font} ${cpu cpu0}% ${alignc $sr{-16}} ${execi 3600 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'} ${alignr} ${execi 3600 zenmonitor-cli -o | grep "tDie" | awk '{print $4}' | head -c 5}℃
 ${color3}${cpugraph cpu0}${color}
 {% if top_cpu_entries then %}
 ${color2}${lua font h2 {PROCESS ${goto $sr{156}}PID ${goto $sr{194}}MEM% ${alignr}CPU%}}${font}${color}#
